@@ -5,6 +5,8 @@ import (
 	"reflect"
 )
 
+var _assert *Assert
+
 type _try struct {
 	err    error
 	params []reflect.Value
@@ -34,7 +36,7 @@ func Try(fn func(assert *Assert)) *_try {
 				}
 			}
 		}()
-		t.params = reflect.ValueOf(fn).Call([]reflect.Value{reflect.ValueOf(new(Assert))})
+		t.params = reflect.ValueOf(fn).Call([]reflect.Value{reflect.ValueOf(_assert)})
 	}()
 	return t
 }

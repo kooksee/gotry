@@ -1,8 +1,11 @@
 # gotry
+
 golang try catch实现
 
 ## example
-```
+
+```sh
+
 gotry.Try(func(assert *gotry.Assert) {
 		assert.Assert(true, "sss%s", "dd")
 	}).Catch(func(err error) {
@@ -14,4 +17,5 @@ gotry.Try(func(assert *gotry.Assert) {
 	}).Catch(func(err error) {
 		fmt.Println(err.Error())
 	})
+
 ```

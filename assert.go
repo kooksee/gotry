@@ -23,6 +23,14 @@ func assert(b bool, text string, args ...interface{}) {
 type Assert struct {
 }
 
+func (t *Assert) Println(args ...interface{}) {
+	fmt.Println(args...)
+}
+
+func (t *Assert) P(format string, args ...interface{}) {
+	fmt.Printf(format, args...)
+}
+
 func (t *Assert) Assert(b bool, format string, args ...interface{}) {
 	if b {
 		err := errors.NewErr(format, args...)
@@ -43,6 +51,8 @@ func (t *Assert) AssertErr(err error, format string, args ...interface{}) {
 
 func (t *Assert) MustNotError(err error) {
 	if err != nil {
-		panic(err.Error())
+		e := errors.Trace(err)
+		e.(*errors.Err).SetLocation(1)
+		panic(errors.ErrorStack(e))
 	}
 }
